@@ -7,17 +7,18 @@ pkgs.stdenv.mkDerivation {
   sourceRoot = ".";
 
   phases = [ "buildPhase" "installPhase" ];
+  nativeBuildInputs = [ pkgs.python311Packages.virtualenv pkgs.unzip ];
 
   buildPhase = ''
-    # virtualenv venv
-    # source venv/bin/activate
+    virtualenv venv
+    source venv/bin/activate
     pip install .
   '';
 
   installPhase = ''
     mkdir -p $out/bin
-    mv chromedriver $out/bin/
-    chmod +x $out/bin/chromedriver
+    mv undetected-chromedriver $out/bin/
+    chmod +x $out/bin/undetected-chromedriver
   '';
 
   meta = with pkgs.lib; {
