@@ -1,29 +1,18 @@
-self: super:
+# overlay.nix
 
-{
-  undetected-chromedriver = super.stdenv.mkDerivation {
-    pname = "undetected-chromedriver";
-    version = "0.1.0"; # Add the version if applicable
+self: super: {
+  undetected-chromedriver = self.python3Packages.buildPythonApplication rec {
+    pname = "undetected_chromedriver";
+    version = "0.1.0";
+    src = ./.; # Replace with the correct path or URL
 
-      src = ./undetected_chromedriver.tar.gz; # Specify the source
+    nativeBuildInputs = [ self.python3Packages.setuptools self.python3Packages.pip ];
+    propagatedBuildInputs = with self.python3Packages; [ requests websockets selenium ];  # Add other dependencies here
 
-      sourceRoot = ".";
-
-    phases = [ "installPhase" ];
-    buildInputs = [ super.pkgs.gnutar ];
-
-
-    installPhase = ''
-      tar -xf $src -C $sourceRoot
-      mkdir -p $out/bin
-      mv $sourceRoot/undetected_chromedriver $out/bin/
-      chmod +x $out/bin/undetected_chromedriver
-      '';
-
-    meta = with super.lib; {
+    meta = with self.lib; {
       description = "A package for undetected-chromedriver";
       license = licenses.mit;
-      maintainers = [ maintainers.kbwhodat ]; # Use your actual maintainers list reference
+      maintainers = [ "kbwhodat" ];  # Use your actual maintainers list reference
     };
   };
 }
