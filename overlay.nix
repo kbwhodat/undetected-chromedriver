@@ -11,19 +11,12 @@ super.stdenv.mkDerivation {
   phases = [ "installPhase" ];
   buildInputs = [ super.pkgs.tar ];
 
-  buildPhase = true;
-  checkPhase = true;
-  patchPhase = true;
 
   installPhase = ''
-    runHook preInstall
-
     tar -xf $src -C $sourceRoot
     mkdir -p $out/bin
     mv $sourceRoot/undetected-chromedriver $out/bin/
     chmod +x $out/bin/undetected-chromedriver
-
-    runHook postInstall
   '';
 
   meta = with super.lib; {
