@@ -1,23 +1,35 @@
-{ pkgs ? import <nixpkgs> {} }:
+self: super:
 
-pkgs.stdenv.mkDerivation {
+super.stdenv.mkDerivation {
   pname = "undetected-chromedriver";
+  version = "0.1.0"; # Add the version if applicable
+
+  src = ./undetected-chromedriver.tar.gz; # Specify the source
 
   sourceRoot = ".";
 
-  phases = [ "buildPhase" "installPhase" ];
-  buildInputs = [ pkgs.tar ];
+  phases = [ "unpackPhase" "installPhase" ];
+  buildInputs = [ super.pkgs.tar ];
 
-  installPhase = ''
-    tar -xf undetected-chromedriver.tar.gz
-    mkdir -p $out/bin
-    mv undetected-chromedriver $out/bin/
-    chmod +x $out/bin/undetected-chromedriver
+  unpackPhase = ''
+    runHook preUnpack
+    tar -xf $src -C $sourceRoot
+    runHook postUnpack
   '';
 
-  meta = with pkgs.lib; {
-    description = "undetected-chromedriver";
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/bin
+    mv $sourceRoot/undetected-chromedriver $out/bin/
+    chmod +x $out/bin/undetected-chromedriver
+
+    runHook postInstall
+  '';
+
+  meta = with super.lib; {
+    description = "A package for undetected-chromedriver";
     license = licenses.mit;
-    maintainers = [ "kbwhodat" ];
+    maintainers = [ maintainers.kbwhodat ]; # Use your actual maintainers list reference
   };
 }
