@@ -8,18 +8,14 @@ super.stdenv.mkDerivation {
 
   sourceRoot = ".";
 
-  phases = [ "unpackPhase" "installPhase" ];
+  phases = [ "installPhase" ];
   buildInputs = [ super.pkgs.tar ];
 
-  unpackPhase = ''
-    runHook preUnpack
-    tar -xf $src -C $sourceRoot
-    runHook postUnpack
-  '';
 
   installPhase = ''
     runHook preInstall
 
+    tar -xf $src -C $sourceRoot
     mkdir -p $out/bin
     mv $sourceRoot/undetected-chromedriver $out/bin/
     chmod +x $out/bin/undetected-chromedriver
