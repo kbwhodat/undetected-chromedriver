@@ -1,10 +1,4 @@
 {
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-  };
-
-  outputs = { self, nixpkgs, ... }:
-    {
-      overlays.default = final: prev: import ./overlay.nix { inherit final prev; };
-    };
+  inputs = { nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05"; };
+  outputs = { self, nixpkgs, ... }@inputs: { overlay = import ./overlay.nix; };
 }
