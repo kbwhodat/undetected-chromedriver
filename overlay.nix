@@ -11,6 +11,9 @@ super.stdenv.mkDerivation {
   phases = [ "installPhase" ];
   buildInputs = [ super.pkgs.tar ];
 
+  buildPhase = true;
+  checkPhase = true;
+  patchPhase = true;
 
   installPhase = ''
     runHook preInstall
