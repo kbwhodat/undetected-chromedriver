@@ -19,10 +19,6 @@ self: super:
       self.python3Packages.pip
     ];
 
-    shellHook = ''
-      pip install selenium-profiles
-    '';
-
     propagatedBuildInputs = with self.python3Packages; [ requests websockets selenium blinker ];
 
     postConfigure = ''
