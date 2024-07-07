@@ -23,7 +23,7 @@ self: super:
       pip install selenium-profiles
     '';
 
-    propagatedBuildInputs = with self.python3Packages; [ requests websockets blinker ];
+    propagatedBuildInputs = with self.python3Packages; [ requests websockets selenium blinker ];
 
     postConfigure = ''
       substituteInPlace undetected_chromedriver/patcher.py \
