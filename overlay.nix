@@ -14,7 +14,6 @@ self: super:
     };
 
     buildInputs = [
-      self.chromedriver
       self.python3Packages.setuptools 
       self.python3Packages.pip
     ];
