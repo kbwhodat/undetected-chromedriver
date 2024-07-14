@@ -18,7 +18,7 @@ self: super:
       self.python3Packages.pip
     ];
 
-    propagatedBuildInputs = with self.python3Packages; [ requests websockets selenium blinker ];
+    propagatedBuildInputs = with self.python3Packages; [ requests websockets selenium blinker setuptools];
 
     postConfigure = ''
       substituteInPlace undetected_chromedriver/patcher.py \
