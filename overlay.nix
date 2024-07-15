@@ -14,11 +14,11 @@ self: super:
     };
 
     buildInputs = [
-      self.python3Packages.setuptools 
-      self.python3Packages.pip
+      self.pkgs.python311Packages.setuptools 
+      self.pkgs.python311Packages.pip
     ];
 
-    propagatedBuildInputs = with self.python3Packages; [ requests websockets selenium blinker setuptools];
+    propagatedBuildInputs = with self.pkgs.python311Packages; [ requests websockets selenium blinker];
 
     postConfigure = ''
       substituteInPlace undetected_chromedriver/patcher.py \
