@@ -1,7 +1,7 @@
 self: super:
 {
 
-  undetected-chromedriver = self.python3Packages.buildPythonPackage rec {
+  undetected-chromedriver = self.pkgs.python311Packages.buildPythonPackage rec {
     pname = "undetected_chromedriver";
     version = "3.5.5";
     format = "setuptools";
