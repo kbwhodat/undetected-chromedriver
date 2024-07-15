@@ -6,19 +6,15 @@ self: super:
     version = "3.5.5";
     format = "setuptools";
 
-    src = self.fetchFromGitHub {
-      owner = "ultrafunkamsterdam";
-      repo = "undetected-chromedriver";
-      rev = "0aa5fbe252370b4cb2b95526add445392cad27ba";
-      hash = "sha256-Qe+GrsUPnhjJMDgjdUCloapjj0ggFlm/Dr42WLcmb1o=";
-    };
+    src = ./.;
 
     buildInputs = [
       self.pkgs.python311Packages.setuptools 
       self.pkgs.python311Packages.pip
+      self.pkgs.python311Packages.wheel
     ];
 
-    propagatedBuildInputs = with self.pkgs.python311Packages; [ requests websockets selenium blinker];
+    propagatedBuildInputs = with self.pkgs.python311Packages; [ requests websockets selenium blinker looseversion ];
 
     postConfigure = ''
       substituteInPlace undetected_chromedriver/patcher.py \
